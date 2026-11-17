@@ -1,8 +1,9 @@
-
 <?php
 
 require_once "conexion.php";
+require_once "Usuario.php";         //permite utilizar nuestra clase.
 
+// Comprobamos si se ha enviado el formulario
 if (isset($_POST["registrar"])) {
 
     $nombre = $_POST["nombre"];
@@ -10,37 +11,30 @@ if (isset($_POST["registrar"])) {
     $contrasena = $_POST["contrasena"];
     $confirmar_contrasena = $_POST["confirmar_contrasena"];
 
+    // Comprobamos que las contraseñas coincidan
     if ($contrasena != $confirmar_contrasena) {
 
         echo "Las contraseñas no coinciden.";
 
     } else {
 
-        $sql = "SELECT * FROM usuario WHERE email = ?";
-        $consulta = $conexion->prepare($sql);
-        $consulta->execute([$email]);
+        // Creamos un objeto de la clase Usuario
+        $objeto_usuario = new Usuario($conexion);   //new Usuario($conexion) = crea un objeto de esa clase y le pasa la conexión.
 
-        if ($consulta->rowCount() > 0) {
+        // Llamamos al método para registrar al usuario
+        $resultado = $objeto_usuario->registrar(   //$objeto_usuario->registrar = llama al método que hemos creado anteriormente.
+            $nombre,
+            $email,
+            $contrasena
+        );
 
-            echo "Este correo electrónico ya está registrado.";
+        if ($resultado == true) {
+
+            echo "Registro realizado correctamente.";
 
         } else {
 
-            $contrasena = password_hash($contrasena, PASSWORD_DEFAULT);
-
-            $sql = "INSERT INTO usuario (nombre, email, contrasena, rol)
-                    VALUES (?, ?, ?, ?)";
-
-            $consulta = $conexion->prepare($sql);
-
-            $consulta->execute([
-                $nombre,
-                $email,
-                $contrasena,
-                "cliente"
-            ]);
-
-            echo "Registro realizado correctamente.";
+            echo "Este correo electrónico ya está registrado.";
 
         }
     }
@@ -84,6 +78,7 @@ if (isset($_POST["registrar"])) {
         <input type="submit" name="registrar" value="Registrarse">
 
     </form>
+
 
 </body>
 </html>
