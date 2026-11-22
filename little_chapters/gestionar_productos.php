@@ -1,4 +1,3 @@
-la confirmación al pulsar «Eliminar».
 <?php
 
 // Comprobamos que el usuario sea administrador
@@ -7,19 +6,16 @@ require_once "comprobar_admin.php";
 // Conectamos con la base de datos
 require_once "conexion.php";
 
-// Consultamos los productos junto con el nombre de su categoría
-// INNER JOIN relaciona las tablas producto y categoria mediante id_categoria
-// También obtenemos la imagen para poder mostrarla en el listado
+// Consultamos los productos y sus categorías
 $sql = "SELECT producto.id_producto, producto.nombre, producto.imagen, categoria.nombre AS categoria, producto.precio, producto.stock
         FROM producto
         INNER JOIN categoria
         ON producto.id_categoria = categoria.id_categoria";
 
-// Ejecutamos la consulta SQL
+// Ejecutamos la consulta
 $consulta = $conexion->query($sql);
 
-// Recogemos todos los resultados en un array
-// FETCH_ASSOC permite acceder a los datos mediante el nombre de sus columnas
+// Guardamos los productos en un array
 $productos = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
@@ -31,97 +27,126 @@ $productos = $consulta->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestionar productos - Little Chapters</title>
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-    <h1>Little Chapters - Panel de administración</h1>
+    <!-- Cabecera del administrador -->
+<header class="admin-header">
 
-    <p>Gestión de productos</p>
+    <!-- Nombre de la tienda y panel de administración -->
+    <div class="admin-logo">
 
-    <!-- Enlace para añadir un producto nuevo -->
-    <a href="crear_producto.php">+ Añadir producto</a>
+        <h1>Little Chapters</h1>
 
-    <br><br>
+        <p>Panel de administración</p>
 
-    <!-- Tabla donde mostraremos los productos -->
-    <table border="1">
+    </div>
 
-        <tr>
-            <th>Imagen</th>
-            <th>Nombre</th>
-            <th>Categoría</th>
-            <th>Precio</th>
-            <th>Stock</th>
-            <th>Acciones</th>
-        </tr>
+    <!-- Enlace para cerrar sesión -->
+    <a href="cerrar_sesion.php">Cerrar sesión</a>
 
-        <?php
-        // Recorremos el array para mostrar todos los productos
-        // En cada vuelta, $producto contiene los datos de un producto
-        foreach ($productos as $producto) {
-        ?>
+</header>
 
-            <tr>
+    <!-- Zona principal -->
+    <main class="admin-main">
 
-                <!-- Mostramos la imagen del producto -->
-                <td>
-                    <?php
-                    // Comprobamos si el producto tiene una imagen guardada
-                    if (!empty($producto["imagen"])) {
-                        // Mostramos la imagen
-                        // htmlspecialchars evita interpretar el texto como código HTML
-                        echo '<img src="' . htmlspecialchars($producto["imagen"]) . '" alt="Imagen del producto" width="80" height="80">';
-                    } else {
-                        // Si no tiene imagen, mostramos este texto
-                        echo "Sin imagen";
-                    }
-                    ?>
-                </td>
+        <!-- Menú lateral -->
+        <aside class="admin-menu">
 
-                <!-- Mostramos el nombre del producto -->
-                <td>
-                    <?php echo htmlspecialchars($producto["nombre"]); ?>
-                </td>
+            <!-- Página en la que estamos actualmente -->
+            <a href="gestionar_productos.php" class="menu-activo">Productos</a>
 
-                <!-- Mostramos el nombre de su categoría -->
-                <td>
-                    <?php echo htmlspecialchars($producto["categoria"]); ?>
-                </td>
+            <a href="#">Pedidos</a>
 
-                <!-- Mostramos el precio -->
-                <td>
-                    <?php echo $producto["precio"]; ?> €
-                </td>
+        </aside>
 
-                <!-- Mostramos las existencias disponibles -->
-                <td>
-                    <?php echo $producto["stock"]; ?>
-                </td>
+        <!-- Contenido de productos -->
+        <section class="admin-content">
 
-                <!-- Acciones para modificar o eliminar el producto -->
-                <td>
-                    <!-- Enviamos el ID del producto para identificarlo -->
-                    <a href="editar_producto.php?id=<?php echo $producto["id_producto"]; ?>">
-                        Editar
-                    </a>
-                    |
-                    <a href="eliminar_producto.php?id=<?php echo $producto["id_producto"]; ?>"
-                       onclick="return confirm('¿Seguro que quieres eliminar este producto?')">
-                        Eliminar
-                    </a>
-                </td>
+            <div class="admin-titulo">
 
-            </tr>
+                <h2>Productos</h2>
 
-        <?php
-        }
-        ?>
+                <!-- Enlace para añadir un producto -->
+                <a href="crear_producto.php">+ Añadir producto</a>
 
-    </table>
+            </div>
 
-    <br>
+            <!-- Tabla de productos -->
+            <table class="tabla-productos">
 
-    <!-- Enlace para volver a la página de inicio -->
-    <a href="inicio.php">Volver al inicio</a>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                </tr>
+
+                <?php
+                // Recorremos todos los productos
+                foreach ($productos as $producto) {
+                ?>
+
+                    <tr>
+
+                        <!-- Imagen del producto -->
+                        <td>
+                            <?php
+                            if (!empty($producto["imagen"])) {
+                                echo '<img src="' . htmlspecialchars($producto["imagen"]) . '" alt="Imagen del producto">';
+                            } else {
+                                echo "Sin imagen";
+                            }
+                            ?>
+                        </td>
+
+                        <!-- Nombre del producto -->
+                        <td>
+                            <?php echo htmlspecialchars($producto["nombre"]); ?>
+                        </td>
+
+                        <!-- Categoría -->
+                        <td>
+                            <?php echo htmlspecialchars($producto["categoria"]); ?>
+                        </td>
+
+                        <!-- Precio -->
+                        <td>
+                            <?php echo $producto["precio"]; ?> €
+                        </td>
+
+                        <!-- Stock -->
+                        <td>
+                            <?php echo $producto["stock"]; ?>
+                        </td>
+
+                        <!-- Botones de las acciones -->
+                        <td>
+
+                            <a class="boton-editar" href="editar_producto.php?id=<?php echo $producto["id_producto"]; ?>">
+                                Editar
+                            </a>
+
+                            <a class="boton-eliminar" href="eliminar_producto.php?id=<?php echo $producto["id_producto"]; ?>"
+                               onclick="return confirm('¿Seguro que quieres eliminar este producto?')">
+                                Eliminar
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                <?php
+                }
+                ?>
+
+            </table>
+
+        </section>
+
+    </main>
 
 
 </body>

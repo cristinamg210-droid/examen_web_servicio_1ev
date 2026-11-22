@@ -19,10 +19,10 @@ if (isset($_POST["registrar"])) {
     } else {
 
         // Creamos un objeto de la clase Usuario
-        $objeto_usuario = new Usuario($conexion);   //new Usuario($conexion) = crea un objeto de esa clase y le pasa la conexión.
+        $objeto_usuario = new Usuario($conexion);
 
         // Llamamos al método para registrar al usuario
-        $resultado = $objeto_usuario->registrar(   //$objeto_usuario->registrar = llama al método que hemos creado anteriormente.
+        $resultado = $objeto_usuario->registrar(
             $nombre,
             $email,
             $contrasena
@@ -48,36 +48,73 @@ if (isset($_POST["registrar"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - Little Chapters</title>
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
     
-    <h1>Crear una cuenta</h1>
+    <header>
 
-    <form action="registro.php" method="POST">
+        <div class="logo">
+            <h1>Little Chapters</h1>
+            <p>Lectura - Papelería - Decoración</p>
+        </div>
 
-        <label>Nombre completo:</label>
-        <input type="text" name="nombre" required>
+        <nav>
+            <a href="inicio.php">Inicio</a>
+            <a href="#">Categorías</a>
+            <a href="#">Sobre nosotros</a>
+            <a href="#">Contacto</a>
+        </nav>
 
-        <br><br>
+        <div class="iconos">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 
-        <label>Correo electrónico:</label>
-        <input type="email" name="email" required>
+    </header>
 
-        <br><br>
+    <main>
 
-        <label>Contraseña:</label>
-        <input type="password" name="contrasena" required>
+        <div class="registro">
 
-        <br><br>
+            <h2>Crear cuenta</h2>
 
-        <label>Confirmar contraseña:</label>
-        <input type="password" name="confirmar_contrasena" required>
+            <p>Únete a Little Chapters y descubre todo lo que tenemos para ti.</p>
 
-        <br><br>
+            <hr>
 
-        <input type="submit" name="registrar" value="Registrarse">
+            <form action="registro.php" method="POST">
 
-    </form>
+                <label>Nombre completo*</label>
+                <input type="text" name="nombre" placeholder="Introduce tu nombre" required>
+
+                <label>Correo electrónico*</label>
+                <input type="email" name="email" placeholder="@email.com" required>
+
+                <label>Contraseña*</label>
+                <div class="password">
+                    <input type="password" name="contrasena" placeholder="Minimo 8 caracteres" required>
+                    <span></span>
+                </div>
+
+                <label>Confirmar contraseña*</label>
+                <div class="password">
+                    <input type="password" name="confirmar_contrasena" placeholder="Repite tu contraseña" required>
+                    <span></span>
+                </div>
+
+                <input type="submit" name="registrar" value="Registrarse">
+
+            </form>
+
+            <p class="enlace">
+                ¿Ya tienes una cuenta? <a href="login.php">Iniciar sesión</a>
+            </p>
+
+        </div>
+
+    </main>
 
 
 </body>
