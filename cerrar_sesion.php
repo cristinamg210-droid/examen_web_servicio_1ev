@@ -1,10 +1,13 @@
+
 <?php
 
 session_start();
 
+// Cerramos la sesión del usuario
 session_destroy();
 
-header("Location: http://localhost/examen_web_servicio_1ev/little_chapters/login.php");
+// Volvemos a la página de inicio de sesión
+header("Location: login.php");
 
 exit();
 

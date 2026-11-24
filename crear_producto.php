@@ -1,3 +1,4 @@
+
 <?php
 
 require_once "comprobar_admin.php";
@@ -51,65 +52,173 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Añadir producto - Little Chapters</title>
+    <link rel="stylesheet" href="estilos.css">
 </head>
-<body>
-    
-    <h1>Añadir producto</h1>
+<body class="pagina-editar-producto">
 
-    <?php if ($error != "") { ?>
-        <p><?php echo htmlspecialchars($error); ?></p>
-    <?php } ?>
+    <!-- Cabecera del administrador -->
+    <header class="admin-header">
 
-    <?php if (count($categorias) > 0) { ?>
+        <div class="admin-logo">
 
-        <form action="crear_producto.php" method="POST">
+            <h1>Little Chapters</h1>
 
-            <label>Nombre:</label><br>
-            <input type="text" name="nombre" required><br><br>
+            <p>Panel de administración</p>
 
-            <label>Categoría:</label><br>
-            <select name="id_categoria" required>
+        </div>
 
-                <option value="">Selecciona una categoría</option>
+        <!-- Enlaces de la cabecera -->
+        <div class="enlaces-admin">
 
-                <?php foreach ($categorias as $categoria) { ?>
-                    <option value="<?php echo $categoria["id_categoria"]; ?>">
-                        <?php echo htmlspecialchars($categoria["nombre"]); ?>
-                    </option>
+            <a href="catalogo.php">Volver al catálogo</a>
+
+            <a href="cerrar_sesion.php">Cerrar sesión</a>
+
+        </div>
+
+    </header>
+
+
+    <!-- Zona principal -->
+    <main class="admin-main">
+
+        <!-- Menú lateral -->
+        <aside class="admin-menu">
+
+            <a href="gestionar_productos.php" class="menu-activo">Productos</a>
+
+            <a href="gestionar_pedidos.php">Pedidos</a>
+
+        </aside>
+
+
+        <!-- Contenido del formulario -->
+        <section class="admin-content">
+
+            <div class="admin-titulo">
+
+                <h2>Añadir producto</h2>
+
+            </div>
+
+
+            <!-- Formulario para añadir el producto -->
+            <div class="formulario-editar-producto">
+
+                <?php if ($error != "") { ?>
+
+                    <p class="error-editar-producto">
+                        <?php echo htmlspecialchars($error); ?>
+                    </p>
+
                 <?php } ?>
 
-            </select><br><br>
 
-            <label>Descripción:</label><br>
-            <textarea name="descripcion"></textarea><br><br>
+                <?php if (count($categorias) > 0) { ?>
 
-            <label>Precio:</label><br>
-            <input type="number" name="precio" step="0.01" min="0" required><br><br>
+                    <form action="crear_producto.php" method="POST">
 
-            <label>Stock:</label><br>
-            <input type="number" name="stock" min="0" step="1" required><br><br>
+                        <!-- Nombre -->
+                        <div class="campo-editar-producto">
 
-            <label>Imagen (ruta):</label><br>
-            <input type="text" name="imagen"><br><br>
+                            <label>Nombre:</label>
 
-            <button type="submit">Guardar producto</button>
+                            <input type="text" name="nombre" required>
 
-        </form>
+                        </div>
 
-    <?php } else { ?>
 
-        <p>Primero debes crear las categorías de la tienda.</p>
+                        <!-- Categoría -->
+                        <div class="campo-editar-producto">
 
-    <?php } ?>
+                            <label>Categoría:</label>
 
-    <br>
+                            <select name="id_categoria" required>
 
-    <a href="gestionar_productos.php">Volver a productos</a>
+                                <option value="">Selecciona una categoría</option>
+
+                                <?php foreach ($categorias as $categoria) { ?>
+
+                                    <option value="<?php echo $categoria["id_categoria"]; ?>">
+                                        <?php echo htmlspecialchars($categoria["nombre"]); ?>
+                                    </option>
+
+                                <?php } ?>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Descripción -->
+                        <div class="campo-editar-producto">
+
+                            <label>Descripción:</label>
+
+                            <textarea name="descripcion" rows="4"></textarea>
+
+                        </div>
+
+
+                        <!-- Precio -->
+                        <div class="campo-editar-producto">
+
+                            <label>Precio (€):</label>
+
+                            <input type="number" name="precio" step="0.01" min="0" required>
+
+                        </div>
+
+
+                        <!-- Stock -->
+                        <div class="campo-editar-producto">
+
+                            <label>Stock:</label>
+
+                            <input type="number" name="stock" min="0" step="1" required>
+
+                        </div>
+
+
+                        <!-- Imagen -->
+                        <div class="campo-editar-producto">
+
+                            <label>Imagen (ruta):</label>
+
+                            <input type="text" name="imagen">
+
+                        </div>
+
+
+                        <!-- Botones -->
+                        <div class="botones-editar-producto">
+
+                            <button type="submit">Guardar producto</button>
+
+                            <a href="gestionar_productos.php">Volver a productos</a>
+
+                        </div>
+
+                    </form>
+
+                <?php } else { ?>
+
+                    <p>Primero debes crear las categorías de la tienda.</p>
+
+                    <a href="gestionar_productos.php">Volver a productos</a>
+
+                <?php } ?>
+
+            </div>
+
+        </section>
+
+    </main>
 
 </body>
 </html>

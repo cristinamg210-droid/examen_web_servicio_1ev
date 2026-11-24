@@ -1246,3 +1246,498 @@ body {
     }
 
 }
+
+
+
+
+/* --------------------------------
+   PÁGINA MI CUENTA
+-------------------------------- */
+
+/* Zona principal */
+.pagina-catalogo .cuenta-main {
+    min-height: 550px;
+    background-color: #ead5d5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 45px 20px;
+    box-sizing: border-box;
+}
+
+/* Tarjeta de bienvenida */
+.pagina-catalogo .cuenta-tarjeta {
+    width: 700px;
+    max-width: 100%;
+    background-color: #f7e9e9;
+    padding: 45px;
+    border-radius: 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Título principal */
+.pagina-catalogo .cuenta-tarjeta h2 {
+    color: #873532;
+    font-family: Georgia, serif;
+    font-size: 38px;
+    font-weight: normal;
+    margin: 0 0 25px;
+}
+
+/* Saludo al usuario */
+.pagina-catalogo .cuenta-saludo {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Mensaje de inicio de sesión */
+.pagina-catalogo .cuenta-mensaje {
+    font-size: 17px;
+}
+
+/* Línea separadora */
+.pagina-catalogo .cuenta-separador {
+    height: 1px;
+    background-color: #b77b79;
+    margin: 25px 0;
+}
+
+/* Título de la zona personal */
+.pagina-catalogo .cuenta-tarjeta h3 {
+    color: #873532;
+    font-family: Georgia, serif;
+    font-size: 27px;
+    font-weight: normal;
+}
+
+/* Texto informativo */
+.pagina-catalogo .cuenta-tarjeta p {
+    line-height: 1.5;
+}
+
+/* Etiqueta del rol */
+.pagina-catalogo .cuenta-rol {
+    display: block;
+    width: fit-content;
+    margin: 22px auto;
+    padding: 8px 22px;
+    background-color: #ead5d5;
+    color: #873532;
+    border-radius: 15px;
+    font-size: 16px;
+}
+
+/* Botón principal */
+.pagina-catalogo .cuenta-boton {
+    display: block;
+    width: fit-content;
+    margin: 25px auto 15px;
+    padding: 12px 30px;
+    background-color: #873532;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-family: Georgia, serif;
+    font-size: 19px;
+}
+
+/* Enlace para cerrar sesión */
+.pagina-catalogo .cuenta-cerrar {
+    display: inline-block;
+    margin-top: 10px;
+    color: #873532;
+    font-size: 16px;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 550px) {
+
+    .pagina-catalogo .cuenta-tarjeta {
+        padding: 25px 18px;
+    }
+
+    .pagina-catalogo .cuenta-tarjeta h2 {
+        font-size: 29px;
+    }
+
+}
+
+
+
+
+/* --------------------------------
+   PANEL PRINCIPAL DE ADMINISTRACIÓN
+-------------------------------- */
+
+/* Fondo general */
+body.pagina-admin {
+    margin: 0;
+    background-color: #ead5d5;
+    font-family: Georgia, serif;
+}
+
+/* Cabecera */
+.pagina-admin .cabecera-panel {
+    min-height: 110px;
+    background-color: #873433;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    box-sizing: border-box;
+}
+
+/* Logo */
+.pagina-admin .logo-panel h1 {
+    font-size: 40px;
+    font-weight: normal;
+    margin: 0;
+}
+
+/* Texto de la cabecera */
+.pagina-admin .logo-panel p {
+    font-size: 17px;
+    margin: 5px 0 0;
+}
+
+/* Enlace de cerrar sesión */
+.pagina-admin .cabecera-panel a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Zona principal */
+.pagina-admin .panel-main {
+    display: block;
+    min-height: 570px;
+    padding: 45px 6%;
+    box-sizing: border-box;
+    background-color: #ead5d5;
+}
+
+/* Bienvenida */
+.pagina-admin .panel-bienvenida {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+/* Título */
+.pagina-admin .panel-bienvenida h2 {
+    color: #873433;
+    font-size: 38px;
+    font-weight: normal;
+    margin: 0 0 20px;
+}
+
+/* Texto */
+.pagina-admin .panel-bienvenida p {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+/* Opciones */
+.pagina-admin .opciones-panel {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    flex-wrap: wrap;
+}
+
+/* Tarjetas */
+.pagina-admin .opcion-panel {
+    width: 360px;
+    min-height: 220px;
+    background-color: #f7e9e9;
+    padding: 30px;
+    border-radius: 18px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Títulos de las tarjetas */
+.pagina-admin .opcion-panel h3 {
+    color: #873433;
+    font-size: 29px;
+    font-weight: normal;
+}
+
+/* Descripción */
+.pagina-admin .opcion-panel p {
+    font-size: 16px;
+    line-height: 1.5;
+    min-height: 70px;
+}
+
+/* Botones */
+.pagina-admin .opcion-panel a {
+    display: inline-block;
+    background-color: #873433;
+    color: white;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-size: 17px;
+}
+
+/* Enlace para volver al catálogo */
+.pagina-admin .volver-catalogo {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.pagina-admin .volver-catalogo a {
+    color: #873433;
+    font-size: 17px;
+}
+
+/* Pie de página */
+.pagina-admin .pie-panel {
+    background-color: #f7e9e9;
+    padding: 20px;
+    text-align: center;
+}
+
+.pagina-admin .pie-panel p {
+    margin: 0;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 650px) {
+
+    .pagina-admin .cabecera-panel {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .pagina-admin .panel-bienvenida h2 {
+        font-size: 29px;
+    }
+
+    .pagina-admin .opcion-panel {
+        width: 100%;
+    }
+
+}
+
+
+
+
+/* --------------------------------
+   GESTIÓN DE PRODUCTOS
+-------------------------------- */
+
+/* Fondo general */
+body.pagina-gestion-productos {
+    margin: 0;
+    background-color: #ead5d5;
+    font-family: Georgia, serif;
+}
+
+/* Cabecera */
+.pagina-gestion-productos .admin-header {
+    box-sizing: border-box;
+}
+
+/* Zona principal */
+.pagina-gestion-productos .admin-main {
+    box-sizing: border-box;
+    min-height: 750px;
+}
+
+/* Menú lateral */
+.pagina-gestion-productos .admin-menu {
+    flex-shrink: 0;
+}
+
+/* Contenido */
+.pagina-gestion-productos .admin-content {
+    min-width: 0;
+}
+
+/* Título y botón de añadir */
+.pagina-gestion-productos .admin-titulo h2 {
+    margin: 0;
+}
+
+/* Botón de añadir producto */
+.pagina-gestion-productos .admin-titulo a {
+    white-space: nowrap;
+}
+
+/* Contenedor de la tabla */
+.pagina-gestion-productos .contenedor-tabla-productos {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 16px;
+}
+
+/* Tabla */
+.pagina-gestion-productos .tabla-productos {
+    width: 100%;
+    min-width: 850px;
+    border-collapse: collapse;
+    background-color: #f7e9e9;
+}
+
+/* Cabecera de la tabla */
+.pagina-gestion-productos .tabla-productos th {
+    background-color: #873433;
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 18px;
+    font-weight: normal;
+    padding: 18px 10px;
+}
+
+/* Celdas */
+.pagina-gestion-productos .tabla-productos td {
+    padding: 15px 10px;
+    border-bottom: 1px solid #d8aaaa;
+    font-size: 16px;
+}
+
+/* Imágenes */
+.pagina-gestion-productos .tabla-productos img {
+    width: 95px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 9px;
+}
+
+/* Botón editar */
+.pagina-gestion-productos .boton-editar {
+    background-color: #ead5d5;
+    color: #873433;
+    margin: 3px;
+}
+
+/* Botón eliminar */
+.pagina-gestion-productos .boton-eliminar {
+    background-color: #873433;
+    color: white;
+    margin: 3px;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 850px) {
+
+    .pagina-gestion-productos .admin-main {
+        flex-direction: column;
+        padding: 0 15px;
+    }
+
+    .pagina-gestion-productos .admin-menu {
+        width: 100%;
+        padding: 20px;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .pagina-gestion-productos .admin-content {
+        padding: 20px 0;
+    }
+
+    .pagina-gestion-productos .admin-titulo {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+}
+
+
+
+
+/* --------------------------------
+   CONFIRMACIÓN PARA ELIMINAR PRODUCTO
+-------------------------------- */
+
+body.pagina-eliminar-producto {
+    margin: 0;
+    background-color: #ead5d5;
+    font-family: Georgia, serif;
+}
+
+/* Caja de confirmación */
+.pagina-eliminar-producto .confirmacion-eliminar {
+    max-width: 650px;
+    margin: 50px auto;
+    padding: 35px;
+    background-color: #f7e9e9;
+    border-radius: 15px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Título */
+.pagina-eliminar-producto .confirmacion-eliminar h2 {
+    color: #873433;
+    font-size: 30px;
+    font-weight: normal;
+    margin-top: 0;
+}
+
+/* Texto */
+.pagina-eliminar-producto .confirmacion-eliminar p {
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+/* Botones */
+.pagina-eliminar-producto .confirmar-eliminar,
+.pagina-eliminar-producto .cancelar-eliminar,
+.pagina-eliminar-producto .volver-eliminar {
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 10px 5px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: Georgia, serif;
+    font-size: 16px;
+}
+
+/* Confirmar */
+.pagina-eliminar-producto .confirmar-eliminar {
+    background-color: #873433;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Cancelar */
+.pagina-eliminar-producto .cancelar-eliminar,
+.pagina-eliminar-producto .volver-eliminar {
+    background-color: #ead5d5;
+    color: #873433;
+}
+
+/* Error */
+.pagina-eliminar-producto .error-eliminar {
+    color: #873433;
+    background-color: #ead5d5;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+
+
+/* Enlaces de la cabecera del administrador */
+
+.enlaces-admin {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.enlaces-admin a {
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.enlaces-admin a:hover {
+    text-decoration: underline;
+}

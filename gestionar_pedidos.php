@@ -1,3 +1,4 @@
+
 <?php
 
 // Comprobamos que el usuario sea administrador
@@ -21,7 +22,7 @@ $pedidos = $consulta->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,8 +43,14 @@ $pedidos = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
         </div>
 
-        <!-- Enlace para cerrar sesión -->
-        <a href="cerrar_sesion.php">Cerrar sesión</a>
+        <!-- Enlaces de la cabecera -->
+        <div class="enlaces-admin">
+
+            <a href="catalogo.php">Volver al catálogo</a>
+
+            <a href="cerrar_sesion.php">Cerrar sesión</a>
+
+        </div>
 
     </header>
 

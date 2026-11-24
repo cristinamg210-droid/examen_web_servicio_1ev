@@ -6,7 +6,7 @@
 /* ESTILOS GENERALES */
 
 .pagina-catalogo {
-    margin: 8px;
+    margin: 0;
     background-color: #f5f5f5;
     font-family: Georgia, serif;
     color: black;
@@ -25,7 +25,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 5%;
+    padding: 0 4.5%;
 }
 
 .pagina-catalogo .franja-superior p {
@@ -114,7 +114,8 @@
     border-radius: 15px;
     display: flex;
     align-items: center;
-    padding: 0 10px 0 35px;
+    padding: 0 15px 0 35px;
+    transform: translateX(140px);
 }
 
 .pagina-catalogo .buscador-catalogo input {
@@ -125,13 +126,8 @@
     background: transparent;
     font-family: Georgia, serif;
     font-size: 16px;
-}
-
-.pagina-catalogo .buscador-catalogo button {
-    width: 24px;
-    height: 20px;
-    border: none;
-    background-color: #d9dddd;
+    text-align: left;
+    padding-top: 5px;
 }
 
 /* CONTENIDO PRINCIPAL */
@@ -139,7 +135,7 @@
 .pagina-catalogo .contenido-catalogo {
     display: block;
     background-color: #ead5d5;
-    padding: 20px 2% 25px;
+    padding: 25px 3% 25px;
 }
 
 /* CATEGORÍAS */
@@ -148,7 +144,7 @@
     display: flex;
     justify-content: space-between;
     gap: 30px;
-    margin: 0 2% 35px;
+    margin: 0 1.5% 45px;
 }
 
 .pagina-catalogo .bloque-categoria {
@@ -183,7 +179,7 @@
     display: flex;
     align-items: center;
     gap: 25px;
-    margin: 30px -2% 25px;
+    margin: 35px -3% 35px;
 }
 
 .pagina-catalogo .titulo-productos span {
@@ -205,7 +201,7 @@
 .pagina-catalogo .productos-catalogo {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
+    gap: 3%;
     width: 100%;
     margin: 0;
     align-items: stretch;
@@ -216,6 +212,7 @@
     border-radius: 17px;
     overflow: hidden;
     min-width: 0;
+    min-height: 281px;
     display: flex;
     flex-direction: column;
 }
@@ -225,25 +222,28 @@
 .pagina-catalogo .imagen-producto {
     width: 100%;
     height: 220px;
-    background-color: #f7e9e9;
+    background-color: #bdbdbd;
     flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 12px;
+    padding: 0;
+    overflow: hidden;
 }
 
 .pagina-catalogo .imagen-producto img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+    object-position: center;
     display: block;
+    border-radius: 0;
 }
 
 /* INFORMACIÓN DEL PRODUCTO */
 
 .pagina-catalogo .informacion-producto {
-    padding: 15px 15px 20px;
+    padding: 6px 19px 20px;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -252,20 +252,20 @@
 .pagina-catalogo .nombre-producto {
     font-size: 18px;
     line-height: 1.4;
-    margin: 0 0 10px;
-    min-height: 50px;
+    margin: 0 0 0;
+    min-height: 25px;
 }
 
 .pagina-catalogo .precio-producto {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
-    margin: 0 0 20px;
+    margin: 0 0 15px;
 }
 
 .pagina-catalogo .botones-producto {
     display: flex;
     justify-content: space-between;
-    gap: 8px;
+    gap: 10px;
     margin-top: auto;
 }
 
@@ -273,12 +273,16 @@
 .pagina-catalogo .botones-producto button {
     border: none;
     border-radius: 10px;
-    padding: 10px 8px;
+    height: 30px;
+    padding: 5px 8px;
     font-family: Georgia, serif;
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
     text-decoration: none;
-    white-space: normal;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex: 1;
     min-width: 0;
 }
@@ -298,7 +302,7 @@
 
 .pagina-catalogo .pie-catalogo {
     background-color: #ead5d5;
-    padding: 0 0 20px;
+    padding: 15px 0 20px;
 }
 
 .pagina-catalogo .novedades-catalogo {
@@ -367,6 +371,77 @@
     background-color: #873532;
 }
 
+/* AJUSTES DE LA CABECERA Y LOS RESULTADOS */
+
+/* Mantenemos el logo y la navegación separados */
+
+.pagina-catalogo .cabecera-catalogo {
+    display: flex;
+    align-items: flex-start;
+}
+
+.pagina-catalogo .logo-catalogo {
+    flex-shrink: 0;
+}
+
+.pagina-catalogo .navegacion-catalogo {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/* Evitamos que los enlaces del menú se deformen */
+
+.pagina-catalogo .menu-catalogo {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 25px;
+    padding-right: 10px;
+}
+
+.pagina-catalogo .menu-catalogo a {
+    flex-shrink: 0;
+}
+
+/* Centramos el mensaje cuando no hay resultados */
+
+.pagina-catalogo .mensaje-sin-resultados {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 25px 10px;
+    font-size: 18px;
+    margin: 0;
+}
+
+/* ADAPTAMOS LA CABECERA A PANTALLAS PEQUEÑAS */
+
+@media (max-width: 1000px) {
+
+    .pagina-catalogo .cabecera-catalogo {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pagina-catalogo .navegacion-catalogo {
+        width: 100%;
+    }
+
+    .pagina-catalogo .menu-catalogo {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 550px) {
+
+    .pagina-catalogo .buscador-catalogo {
+        width: 100%;
+    }
+}
+
 /* DISEÑO RESPONSIVE */
 
 @media (max-width: 1000px) {
@@ -428,4 +503,115 @@
     .pagina-catalogo .buscador-catalogo {
         width: 100%;
     }
+}
+
+/* IMÁGENES DE LAS CATEGORÍAS */
+
+.pagina-catalogo .bloque-categoria {
+    position: relative;
+    overflow: hidden;
+}
+
+.pagina-catalogo .bloque-categoria img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+}
+
+.pagina-catalogo .bloque-categoria span {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* Formulario de suscripción */
+.suscripcion-catalogo form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Campo para introducir el correo */
+.suscripcion-catalogo input {
+    padding: 12px;
+    border: 1px solid #d8d2d1;
+    border-radius: 5px;
+    outline: none;
+}
+
+/* Botón de suscripción */
+.suscripcion-catalogo button {
+    padding: 12px 20px;
+    background-color: #83483D;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Cambiamos el color al pasar el ratón */
+.suscripcion-catalogo button:hover {
+    background-color: #692828;
+}
+
+/* Mensaje de confirmación */
+#mensaje-suscripcion {
+    margin-top: 10px;
+    color: #692828;
+    font-size: 14px;
+    text-align: center;
+}
+
+
+
+/* Distribución de la zona de novedades */
+.novedades-catalogo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+/* Separamos la frase del formulario */
+.texto-novedades {
+    margin-right: 60px;
+}
+
+/* Formulario de suscripción */
+/* Centramos el campo y el botón */
+#formulario-suscripcion {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 0;
+}
+
+/* Campo del correo */
+#formulario-suscripcion input {
+    width: 250px;
+    box-sizing: border-box;
+    border-radius: 5px 0 0 5px;
+}
+
+/* Movemos el campo del correo */
+#formulario-suscripcion input {
+    position: relative;
+    top: 9px;
+}
+
+/* Botón pegado al campo */
+#formulario-suscripcion button {
+    white-space: nowrap;
+    flex-shrink: 0;
+    border-radius: 0 5px 5px 0;
+}
+
+/* Mensaje de confirmación */
+#mensaje-suscripcion {
+    margin-top: 12px;
 }

@@ -17,21 +17,64 @@ $sql = "SELECT * FROM categoria";
 $consulta = $conexion->query($sql);
 $categorias = $consulta->fetchAll();
 
+// Guardamos el texto escrito en el buscador
+$busqueda = "";
+
+if (isset($_GET["buscar"])) {
+    $busqueda = trim($_GET["buscar"]);
+}
+
 // Comprobamos si se ha seleccionado una categoría
+$hay_categoria = false;
+$id_categoria = 0;
+
 if (isset($_GET["id_categoria"])) {
-
     $id_categoria = (int) $_GET["id_categoria"];
+    $hay_categoria = true;
+}
 
-    // Mostramos los productos de la categoría seleccionada
-    $sql = "SELECT * FROM producto WHERE id_categoria = ?";
-    $consulta = $conexion->prepare($sql);
-    $consulta->execute([$id_categoria]);
+// Comprobamos si se ha escrito algo en el buscador
+if ($busqueda != "") {
+
+    // Comprobamos si también se ha seleccionado una categoría
+    if ($hay_categoria) {
+
+        // Buscamos dentro de la categoría seleccionada
+        $sql = "SELECT * FROM producto
+                WHERE id_categoria = ? AND nombre LIKE ?";
+
+        $consulta = $conexion->prepare($sql);
+        $consulta->execute([$id_categoria, "%" . $busqueda . "%"]);
+
+    } else {
+
+        // Buscamos en todos los productos
+        $sql = "SELECT * FROM producto WHERE nombre LIKE ?";
+
+        $consulta = $conexion->prepare($sql);
+        $consulta->execute(["%" . $busqueda . "%"]);
+
+    }
 
 } else {
 
-    // Mostramos cuatro productos aleatorios de toda la tienda
-    $sql = "SELECT * FROM producto ORDER BY RAND() LIMIT 4";
-    $consulta = $conexion->query($sql);
+    // Comprobamos si se ha seleccionado una categoría
+    if ($hay_categoria) {
+
+        // Mostramos los productos de la categoría seleccionada
+        $sql = "SELECT * FROM producto WHERE id_categoria = ?";
+
+        $consulta = $conexion->prepare($sql);
+        $consulta->execute([$id_categoria]);
+
+    } else {
+
+        // Mostramos cuatro productos aleatorios de toda la tienda
+        $sql = "SELECT * FROM producto ORDER BY RAND() LIMIT 4";
+
+        $consulta = $conexion->query($sql);
+
+    }
 
 }
 
@@ -82,22 +125,46 @@ $productos = $consulta->fetchAll();
 
             <nav class="menu-catalogo">
 
-                <a href="catalogo.php" class="enlace-activo">Inicio</a>
+                <!-- Enlace de inicio -->
+                <a href="catalogo.php"
+                   class="<?php if (!$hay_categoria) { echo 'enlace-activo'; } ?>">
+                    Inicio
+                </a>
 
+                <!-- Enlaces de las categorías -->
                 <?php foreach ($categorias as $categoria) { ?>
 
-                    <a href="catalogo.php?id_categoria=<?php echo $categoria["id_categoria"]; ?>">
+                    <a href="catalogo.php?id_categoria=<?php echo $categoria["id_categoria"]; ?>"
+                       class="<?php if ($hay_categoria && $id_categoria == $categoria["id_categoria"]) { echo 'enlace-activo'; } ?>">
+
                         <?php echo htmlspecialchars($categoria["nombre"]); ?>
+
                     </a>
 
                 <?php } ?>
 
             </nav>
 
-            <div class="buscador-catalogo">
-                <input type="text" placeholder="Buscar productos...">
-                <button type="button"></button>
-            </div>
+            <!-- Buscador de productos -->
+            <form class="buscador-catalogo" method="GET" action="catalogo.php">
+
+                <input
+                    type="text"
+                    name="buscar"
+                    placeholder="Buscar productos..."
+                    value="<?php echo htmlspecialchars($busqueda); ?>"
+                >
+
+                <?php if ($hay_categoria) { ?>
+
+                    <!-- Mantenemos la categoría al realizar la búsqueda -->
+                    <input type="hidden" name="id_categoria" value="<?php echo $id_categoria; ?>">
+
+                <?php } ?>
+
+                <button type="submit" aria-label="Buscar"></button>
+
+            </form>
 
         </div>
 
@@ -114,6 +181,20 @@ $productos = $consulta->fetchAll();
                 <a class="bloque-categoria"
                    href="catalogo.php?id_categoria=<?php echo $categoria["id_categoria"]; ?>">
 
+                    <?php if ($categoria["nombre"] == "Accesorios de lectura") { ?>
+
+                        <img src="imagenes/productos/accesorios_lectura.jpg" alt="Accesorios de lectura">
+
+                    <?php } elseif ($categoria["nombre"] == "Papelería literaria") { ?>
+
+                        <img src="imagenes/productos/papeleria_literaria.avif" alt="Papelería literaria">
+
+                    <?php } elseif ($categoria["nombre"] == "Rincón acogedor") { ?>
+
+                        <img src="imagenes/productos/rincon_acogedor.jpg" alt="Rincón acogedor">
+
+                    <?php } ?>
+
                     <span>
                         <?php echo htmlspecialchars($categoria["nombre"]); ?>
                     </span>
@@ -129,7 +210,17 @@ $productos = $consulta->fetchAll();
 
             <span></span>
 
-            <h2>Nuestros productos</h2>
+            <h2>
+                <?php if ($busqueda != "") { ?>
+
+                    Resultados de búsqueda
+
+                <?php } else { ?>
+
+                    Nuestros productos
+
+                <?php } ?>
+            </h2>
 
             <span></span>
 
@@ -138,50 +229,155 @@ $productos = $consulta->fetchAll();
         <!-- Productos -->
         <section class="productos-catalogo">
 
-            <?php foreach ($productos as $producto) { ?>
+            <?php if (count($productos) > 0) { ?>
 
-                <article class="tarjeta-producto">
+                <?php foreach ($productos as $producto) { ?>
 
-                    <!-- Imagen del producto -->
-                    <div class="imagen-producto">
+                    <article class="tarjeta-producto">
 
-                        <?php if (!empty($producto["imagen"])) { ?>
+                        <!-- Imagen del producto -->
+                        <div class="imagen-producto">
 
-                            <img
-                                src="<?php echo htmlspecialchars($producto["imagen"]); ?>"
-                                alt="<?php echo htmlspecialchars($producto["nombre"]); ?>"
-                            >
+                            <!-- Imágenes de Accesorios de lectura -->
+                            <?php if ($producto["nombre"] == "Lámpara de lectura") { ?>
 
-                        <?php } ?>
+                                <img src="imagenes/productos/lampara_lectura.webp" alt="Lámpara de lectura">
 
-                    </div>
+                            <?php } elseif ($producto["nombre"] == "Marcapáginas") { ?>
 
-                    <!-- Información del producto -->
-                    <div class="informacion-producto">
+                                <img src="imagenes/productos/marcapaginas.avif" alt="Marcapáginas">
 
-                        <p class="nombre-producto">
-                            <?php echo htmlspecialchars($producto["nombre"]); ?>
-                        </p>
+                            <?php } elseif ($producto["nombre"] == "Funda para libros") { ?>
 
-                        <p class="precio-producto">
-                            <?php echo number_format($producto["precio"], 2, ",", "."); ?>€
-                        </p>
+                                <img src="imagenes/productos/funda_libros.webp" alt="Funda para libros">
 
-                        <div class="botones-producto">
+                            <?php } elseif ($producto["nombre"] == "Marcapáginas magnético") { ?>
 
-                            <a href="detalle_producto.php?id=<?php echo $producto["id_producto"]; ?>">
-                                Ver detalles
-                            </a>
+                                <img src="imagenes/productos/marcapaginas_magnetico.webp" alt="Marcapáginas magnético">
 
-                            <button type="button">
-                                Añadir al carrito
-                            </button>
+                            <?php } elseif ($producto["nombre"] == "Luz de lectura con pinza") { ?>
+
+                                <img src="imagenes/productos/luz_pinza.jpg" alt="Luz de lectura con pinza">
+
+                            <?php } elseif ($producto["nombre"] == "Soporte para libros") { ?>
+
+                                <img src="imagenes/productos/soporte_libros.jpg" alt="Soporte para libros">
+
+                            <?php } elseif ($producto["nombre"] == "Funda para libros acolchada") { ?>
+
+                                <img src="imagenes/productos/funda_libros_acolchada.jpg" alt="Funda para libros acolchada">
+
+                            <?php } elseif ($producto["nombre"] == "Marcapáginas de tela") { ?>
+
+                                <img src="imagenes/productos/marcapaginas_tela.jpg" alt="Marcapáginas de tela">
+
+
+                            <!-- Imágenes de Papelería literaria -->
+                            <?php } elseif ($producto["nombre"] == "Libreta") { ?>
+
+                                <img src="imagenes/productos/libreta.avif" alt="Libreta">
+
+                            <?php } elseif ($producto["nombre"] == "Diario de lectura") { ?>
+
+                                <img src="imagenes/productos/diario_lectura.jpg" alt="Diario de lectura">
+
+                            <?php } elseif ($producto["nombre"] == "Cuaderno literario") { ?>
+
+                                <img src="imagenes/productos/cuaderno_literario.jpg" alt="Cuaderno literario">
+
+                            <?php } elseif ($producto["nombre"] == "Bolígrafo") { ?>
+
+                                <img src="imagenes/productos/boligrafo.jpg" alt="Bolígrafo">
+
+                            <?php } elseif ($producto["nombre"] == "Pack de pegatinas literarias") { ?>
+
+                                <img src="imagenes/productos/pegatinas.jpg" alt="Pack de pegatinas literarias">
+
+                            <?php } elseif ($producto["nombre"] == "Bloc de notas") { ?>
+
+                                <img src="imagenes/productos/bloc_notas.webp" alt="Bloc de notas">
+
+                            <?php } elseif ($producto["nombre"] == "Planificador de lectura") { ?>
+
+                                <img src="imagenes/productos/planificador_lectura.avif" alt="Planificador de lectura">
+
+                            <?php } elseif ($producto["nombre"] == "Set de papelería") { ?>
+
+                                <img src="imagenes/productos/set_papeleria.jpg" alt="Set de papelería">
+
+
+                            <!-- Imágenes de Rincón acogedor -->
+                            <?php } elseif ($producto["nombre"] == "Taza") { ?>
+
+                                <img src="imagenes/productos/taza.webp" alt="Taza">
+
+                            <?php } elseif ($producto["nombre"] == "Vela aromática") { ?>
+
+                                <img src="imagenes/productos/vela_aromatica.avif" alt="Vela aromática">
+
+                            <?php } elseif ($producto["nombre"] == "Cojín decorativo") { ?>
+
+                                <img src="imagenes/productos/cojin.jpg" alt="Cojín decorativo">
+
+                            <?php } elseif ($producto["nombre"] == "Manta suave") { ?>
+
+                                <img src="imagenes/productos/manta.jpg" alt="Manta suave">
+
+                            <?php } elseif ($producto["nombre"] == "Lámina decorativa") { ?>
+
+                                <img src="imagenes/productos/lamina_decorativa.avif" alt="Lámina decorativa">
+
+                            <?php } elseif ($producto["nombre"] == "Taza literaria") { ?>
+
+                                <img src="imagenes/productos/taza_literaria.webp" alt="Taza literaria">
+
+                            <?php } elseif ($producto["nombre"] == "Vela con diseño de libros") { ?>
+
+                                <img src="imagenes/productos/vela_literaria.jpg" alt="Vela con diseño de libros">
+
+                            <?php } elseif ($producto["nombre"] == "Cojín con frase literaria") { ?>
+
+                                <img src="imagenes/productos/cojin_frase.jpg" alt="Cojín con frase literaria">
+
+                            <?php } ?>
 
                         </div>
 
-                    </div>
+                        <!-- Información del producto -->
+                        <div class="informacion-producto">
 
-                </article>
+                            <p class="nombre-producto">
+                                <?php echo htmlspecialchars($producto["nombre"]); ?>
+                            </p>
+
+                            <p class="precio-producto">
+                                <?php echo number_format($producto["precio"], 2, ",", "."); ?>€
+                            </p>
+
+                            <div class="botones-producto">
+
+                                <a href="detalle_producto.php?id=<?php echo $producto["id_producto"]; ?>">
+                                    Ver detalles
+                                </a>
+
+                                <button type="button">
+                                    Añadir al carrito
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                <?php } ?>
+
+            <?php } else { ?>
+
+                <!-- Mensaje cuando no encontramos productos -->
+                <p class="mensaje-sin-resultados">
+                    No se han encontrado productos con ese nombre.
+                </p>
 
             <?php } ?>
 
@@ -202,9 +398,22 @@ $productos = $consulta->fetchAll();
 
             <div class="suscripcion-catalogo">
 
-                <input type="email" placeholder="Introduce tu correo electrónico">
+                <!-- Formulario para suscribirse -->
+                <form id="formulario-suscripcion">
 
-                <button type="button">Suscribirme</button>
+                    <input
+                        type="email"
+                        id="correo-suscripcion"
+                        placeholder="Introduce tu correo electrónico"
+                        required
+                    >
+
+                    <button type="submit">Suscribirme</button>
+
+                </form>
+
+                <!-- Mensaje que aparece después de suscribirse -->
+                <p id="mensaje-suscripcion"></p>
 
             </div>
 
@@ -219,6 +428,34 @@ $productos = $consulta->fetchAll();
         </div>
 
     </footer>
+
+    <!-- JavaScript para el formulario de suscripción -->
+    <script>
+
+        // Seleccionamos el formulario
+        const formulario = document.getElementById("formulario-suscripcion");
+
+        // Seleccionamos el espacio donde aparecerá el mensaje
+        const mensaje = document.getElementById("mensaje-suscripcion");
+
+        // Comprobamos cuando se envía el formulario
+        formulario.addEventListener("submit", function(event) {
+
+            // Evitamos que la página se recargue
+            event.preventDefault();
+
+            // Ocultamos el formulario
+            formulario.style.display = "none";
+
+            // Mostramos el mensaje de confirmación
+            mensaje.textContent = "¡Gracias por suscribirte! Pronto tendrás noticias de Little Chapters.";
+
+            // Hacemos visible el mensaje
+            mensaje.style.display = "block";
+
+        });
+
+    </script>
 
 </body>
 </html>

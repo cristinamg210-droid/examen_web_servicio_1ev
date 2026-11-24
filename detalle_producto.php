@@ -1,3 +1,4 @@
+
 <?php
 
 session_start();
@@ -31,6 +32,9 @@ if (!$producto) {
     exit();
 }
 
+// Guardamos la categoría del producto
+$id_categoria = $producto["id_categoria"];
+
 // Consultamos las categorías para mostrar el menú
 $sql = "SELECT * FROM categoria";
 $consulta = $conexion->query($sql);
@@ -39,39 +43,80 @@ $categorias = $consulta->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle del producto - Little Chapters</title>
-    <link rel="stylesheet" href="estilos.css">
-</head>
-<body>
-    <!-- Cabecera de la tienda -->
-    <header>
 
-        <div class="logo">
+    <title>Detalle del producto - Little Chapters</title>
+
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="estilos_catalogo.css">
+
+</head>
+
+<body class="pagina-catalogo">
+
+    <!-- Franja superior -->
+    <div class="franja-superior">
+
+        <p>Envíos gratuitos a partir de 35€</p>
+
+        <div class="enlaces-superiores">
+            <a href="inicio.php">Mi cuenta</a>
+            <a href="#">Carrito (0)</a>
+            <a href="cerrar_sesion.php">Cerrar sesión</a>
+        </div>
+
+    </div>
+
+    <!-- Cabecera -->
+    <header class="cabecera-catalogo">
+
+        <!-- Logo y nombre de la tienda -->
+        <div class="logo-catalogo">
             <h1>Little Chapters</h1>
             <p>Lectura - Papelería - Decoración</p>
         </div>
 
-        <!-- Menú de categorías -->
-        <nav>
-            <a href="inicio.php">Inicio</a>
+        <!-- Menú y buscador -->
+        <div class="navegacion-catalogo">
 
-            <?php
-            foreach ($categorias as $categoria) {
-            ?>
-                <a href="catalogo.php#categoria-<?php echo $categoria["id_categoria"]; ?>">
-                    <?php echo htmlspecialchars($categoria["nombre"]); ?>
+            <nav class="menu-catalogo">
+
+                <!-- Enlace de inicio -->
+                <a href="catalogo.php">
+                    Inicio
                 </a>
-            <?php
-            }
-            ?>
-        </nav>
 
-        <div class="iconos">
-            <span></span>
+                <!-- Enlaces de las categorías -->
+                <?php foreach ($categorias as $categoria) { ?>
+
+                    <a href="catalogo.php?id_categoria=<?php echo $categoria["id_categoria"]; ?>"
+                       class="<?php if ($id_categoria == $categoria["id_categoria"]) { echo 'enlace-activo'; } ?>">
+
+                        <?php echo htmlspecialchars($categoria["nombre"]); ?>
+
+                    </a>
+
+                <?php } ?>
+
+            </nav>
+
+            <!-- Buscador de productos -->
+            <form class="buscador-catalogo" method="GET" action="catalogo.php">
+
+                <input
+                    type="text"
+                    name="buscar"
+                    placeholder="Buscar productos..."
+                >
+
+                <button type="submit" aria-label="Buscar"></button>
+
+            </form>
+
         </div>
 
     </header>
@@ -81,16 +126,24 @@ $categorias = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="detalle-producto">
 
-            <?php
-            if (!empty($producto["imagen"])) {
-            ?>
-                <img class="detalle-imagen"
-                    src="imagenes/<?php echo htmlspecialchars($producto["imagen"]); ?>"
-                    alt="<?php echo htmlspecialchars($producto["nombre"]); ?>">
-            <?php
-            }
-            ?>
+            <!-- Imagen del producto -->
+            <div class="detalle-imagen-contenedor">
 
+                <?php
+                if (!empty($producto["imagen"])) {
+                ?>
+
+                    <img class="detalle-imagen"
+                        src="<?php echo htmlspecialchars($producto["imagen"]); ?>"
+                        alt="<?php echo htmlspecialchars($producto["nombre"]); ?>">
+
+                <?php
+                }
+                ?>
+
+            </div>
+
+            <!-- Información del producto -->
             <div class="detalle-informacion">
 
                 <h2><?php echo htmlspecialchars($producto["nombre"]); ?></h2>
@@ -103,7 +156,7 @@ $categorias = $consulta->fetchAll(PDO::FETCH_ASSOC);
                     <?php echo number_format($producto["precio"], 2, ",", "."); ?> €
                 </p>
 
-                <p>
+                <p class="detalle-stock">
                     <?php
                     if ($producto["stock"] > 0) {
                         echo "Disponible";
@@ -113,12 +166,15 @@ $categorias = $consulta->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                 </p>
 
-                <a href="catalogo.php" class="boton-detalles">Volver al catálogo</a>
+                <a href="catalogo.php?id_categoria=<?php echo $id_categoria; ?>" class="boton-detalles">
+                    Volver al catálogo
+                </a>
 
             </div>
 
         </div>
 
     </main>
+
 </body>
 </html>

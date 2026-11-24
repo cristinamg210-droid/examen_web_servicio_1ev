@@ -1,3 +1,4 @@
+
 <?php
 
 require_once "comprobar_admin.php";
@@ -41,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "El precio y el stock no pueden ser negativos.";
     } else {
 
-        // UPDATE modifica los datos y WHERE identifica el producto.
+        // Modificamos los datos del producto
         $sql = "UPDATE producto SET id_categoria = ?, nombre = ?, descripcion = ?, precio = ?, stock = ?, imagen = ? WHERE id_producto = ?";
         $consulta = $conexion->prepare($sql);
         $consulta->execute([$id_categoria, $nombre, $descripcion, $precio, $stock, $imagen, $id]);
@@ -56,61 +57,166 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar producto - Little Chapters</title>
+    <link rel="stylesheet" href="estilos.css">
 </head>
-<body>
-    
-    <h1>Editar producto</h1>
+<body class="pagina-editar-producto">
 
-    <?php if ($error != "") { ?>
-        <p><?php echo htmlspecialchars($error); ?></p>
-    <?php } ?>
+    <!-- Cabecera del administrador -->
+    <header class="admin-header">
 
-    <form action="editar_producto.php?id=<?php echo $id; ?>" method="POST">
+        <div class="admin-logo">
 
-        <label>Nombre:</label><br>
-        <input type="text" name="nombre" value="<?php echo htmlspecialchars($producto["nombre"]); ?>" required><br><br>
+            <h1>Little Chapters</h1>
 
-        <label>Categoría:</label><br>
+            <p>Panel de administración</p>
 
-        <select name="id_categoria" required>
+        </div>
 
-            <?php foreach ($categorias as $categoria) { ?>
+        <!-- Enlaces de la cabecera -->
+        <div class="enlaces-admin">
 
-                <option value="<?php echo $categoria["id_categoria"]; ?>"
-                    <?php if ($producto["id_categoria"] == $categoria["id_categoria"]) { echo "selected"; } ?>>
+            <a href="catalogo.php">Volver al catálogo</a>
 
-                    <?php echo htmlspecialchars($categoria["nombre"]); ?>
+            <a href="cerrar_sesion.php">Cerrar sesión</a>
 
-                </option>
+        </div>
 
-            <?php } ?>
+    </header>
 
-        </select><br><br>
 
-        <label>Descripción:</label><br>
-        <textarea name="descripcion"><?php echo htmlspecialchars($producto["descripcion"]); ?></textarea><br><br>
+    <!-- Zona principal -->
+    <main class="admin-main">
 
-        <label>Precio:</label><br>
-        <input type="number" name="precio" step="0.01" min="0" value="<?php echo $producto["precio"]; ?>" required><br><br>
+        <!-- Menú lateral -->
+        <aside class="admin-menu">
 
-        <label>Stock:</label><br>
-        <input type="number" name="stock" min="0" step="1" value="<?php echo $producto["stock"]; ?>" required><br><br>
+            <a href="gestionar_productos.php" class="menu-activo">Productos</a>
 
-        <label>Imagen (ruta):</label><br>
-        <input type="text" name="imagen" value="<?php echo htmlspecialchars($producto["imagen"]); ?>"><br><br>
+            <a href="gestionar_pedidos.php">Pedidos</a>
 
-        <button type="submit">Guardar cambios</button>
+        </aside>
 
-    </form>
 
-    <br>
+        <!-- Contenido del formulario -->
+        <section class="admin-content">
 
-    <a href="gestionar_productos.php">Volver a productos</a>
+            <div class="admin-titulo">
+
+                <h2>Editar producto</h2>
+
+            </div>
+
+
+            <!-- Formulario para modificar el producto -->
+            <div class="formulario-editar-producto">
+
+                <?php if ($error != "") { ?>
+
+                    <p class="error-editar-producto">
+                        <?php echo htmlspecialchars($error); ?>
+                    </p>
+
+                <?php } ?>
+
+
+                <form action="editar_producto.php?id=<?php echo $id; ?>" method="POST">
+
+                    <!-- Nombre -->
+                    <div class="campo-editar-producto">
+
+                        <label>Nombre:</label>
+
+                        <input type="text" name="nombre" value="<?php echo htmlspecialchars($producto["nombre"]); ?>" required>
+
+                    </div>
+
+
+                    <!-- Categoría -->
+                    <div class="campo-editar-producto">
+
+                        <label>Categoría:</label>
+
+                        <select name="id_categoria" required>
+
+                            <?php foreach ($categorias as $categoria) { ?>
+
+                                <option value="<?php echo $categoria["id_categoria"]; ?>"
+                                    <?php if ($producto["id_categoria"] == $categoria["id_categoria"]) {
+                                        echo "selected";
+                                    } ?>>
+
+                                    <?php echo htmlspecialchars($categoria["nombre"]); ?>
+
+                                </option>
+
+                            <?php } ?>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Descripción -->
+                    <div class="campo-editar-producto">
+
+                        <label>Descripción:</label>
+
+                        <textarea name="descripcion" rows="4"><?php echo htmlspecialchars($producto["descripcion"]); ?></textarea>
+
+                    </div>
+
+
+                    <!-- Precio -->
+                    <div class="campo-editar-producto">
+
+                        <label>Precio (€):</label>
+
+                        <input type="number" name="precio" step="0.01" min="0" value="<?php echo $producto["precio"]; ?>" required>
+
+                    </div>
+
+
+                    <!-- Stock -->
+                    <div class="campo-editar-producto">
+
+                        <label>Stock:</label>
+
+                        <input type="number" name="stock" min="0" step="1" value="<?php echo $producto["stock"]; ?>" required>
+
+                    </div>
+
+
+                    <!-- Imagen -->
+                    <div class="campo-editar-producto">
+
+                        <label>Imagen (ruta):</label>
+
+                        <input type="text" name="imagen" value="<?php echo htmlspecialchars($producto["imagen"]); ?>">
+
+                    </div>
+
+
+                    <!-- Botones -->
+                    <div class="botones-editar-producto">
+
+                        <button type="submit">Guardar cambios</button>
+
+                        <a href="gestionar_productos.php">Volver a productos</a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
 
 </body>
 </html>
