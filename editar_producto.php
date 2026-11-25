@@ -69,6 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Cabecera del administrador -->
     <header class="admin-header">
 
+        <!-- Nombre de la tienda y panel de administración -->
         <div class="admin-logo">
 
             <h1>Little Chapters</h1>
@@ -77,10 +78,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         </div>
 
-        <!-- Enlaces de la cabecera -->
+        <!-- Enlace para cerrar sesión -->
         <div class="enlaces-admin">
-
-            <a href="catalogo.php">Volver al catálogo</a>
 
             <a href="cerrar_sesion.php">Cerrar sesión</a>
 
@@ -122,7 +121,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </p>
 
                 <?php } ?>
-
 
                 <form action="editar_producto.php?id=<?php echo $id; ?>" method="POST">
 
@@ -201,12 +199,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
 
 
-                    <!-- Botones -->
+                    <!-- Botón para guardar los cambios -->
                     <div class="botones-editar-producto">
 
                         <button type="submit">Guardar cambios</button>
-
-                        <a href="gestionar_productos.php">Volver a productos</a>
 
                     </div>
 

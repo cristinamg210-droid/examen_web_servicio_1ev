@@ -1,3 +1,4 @@
+
 <?php
 
 // Comprobamos que el usuario sea administrador
@@ -32,7 +33,7 @@ $productos = $consulta->fetchAll(PDO::FETCH_ASSOC);
 <body class="pagina-gestion-productos">
 
 
-        <!-- Cabecera del administrador -->
+    <!-- Cabecera del administrador -->
     <header class="admin-header">
 
         <!-- Nombre de la tienda y panel de administración -->
@@ -44,8 +45,14 @@ $productos = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
         </div>
 
-        <!-- Enlace para cerrar sesión -->
-        <a href="cerrar_sesion.php">Cerrar sesión</a>
+        <!-- Enlaces de la cabecera -->
+        <div class="enlaces-admin">
+
+            <a href="catalogo.php">Volver al catálogo</a>
+
+            <a href="cerrar_sesion.php">Cerrar sesión</a>
+
+        </div>
 
     </header>
 

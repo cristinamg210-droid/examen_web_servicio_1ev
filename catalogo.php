@@ -391,7 +391,7 @@ $productos = $consulta->fetchAll();
         <div class="novedades-catalogo">
 
             <div class="texto-novedades">
-                <span class="cuadro-icono"></span>
+                <span class="icono-sobre">✉︎</span>
 
                 <p>¡No te pierdas nuestras novedades!</p>
             </div>

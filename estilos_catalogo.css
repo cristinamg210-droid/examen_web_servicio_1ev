@@ -77,15 +77,19 @@
 .pagina-catalogo .navegacion-catalogo {
     flex: 1;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 /* MENÚ */
 
 .pagina-catalogo .menu-catalogo {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    gap: 15px;
+    gap: 25px;
+    padding-right: 10px;
 }
 
 .pagina-catalogo .menu-catalogo a {
@@ -97,6 +101,7 @@
     white-space: nowrap;
     padding: 7px 20px;
     border-radius: 15px;
+    flex-shrink: 0;
 }
 
 .pagina-catalogo .menu-catalogo a.enlace-activo {
@@ -157,6 +162,17 @@
     align-items: center;
     padding: 25px;
     text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.pagina-catalogo .bloque-categoria img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
 }
 
 .pagina-catalogo .bloque-categoria span {
@@ -171,6 +187,8 @@
     color: black;
     text-align: center;
     font-size: 18px;
+    position: relative;
+    z-index: 1;
 }
 
 /* TÍTULO DE PRODUCTOS */
@@ -252,7 +270,7 @@
 .pagina-catalogo .nombre-producto {
     font-size: 18px;
     line-height: 1.4;
-    margin: 0 0 0;
+    margin: 0;
     min-height: 25px;
 }
 
@@ -309,16 +327,17 @@
     min-height: 75px;
     background-color: #f7e9e9;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     padding: 12px 3%;
-    gap: 20px;
+    gap: 50px;
 }
 
 .pagina-catalogo .texto-novedades {
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-right: 60px;
 }
 
 .pagina-catalogo .texto-novedades p {
@@ -327,37 +346,77 @@
     white-space: nowrap;
 }
 
-.pagina-catalogo .cuadro-icono {
-    width: 32px;
-    height: 32px;
-    background-color: #d9dddd;
+/* ICONO DEL SOBRE */
+
+.pagina-catalogo .icono-sobre {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    font-family: Arial, sans-serif;
+    font-size: 28px;
+    line-height: 1;
 }
+
+/* FORMULARIO DE SUSCRIPCIÓN */
 
 .pagina-catalogo .suscripcion-catalogo {
     display: flex;
     align-items: center;
 }
 
+.pagina-catalogo .suscripcion-catalogo form {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
 .pagina-catalogo .suscripcion-catalogo input {
-    width: 255px;
+    width: 250px;
     height: 37px;
-    border: none;
-    border-radius: 15px 0 0 15px;
+    box-sizing: border-box;
+    border: 1px solid #d8d2d1;
+    border-radius: 5px 0 0 5px;
     background-color: #ead5d5;
     padding: 10px 15px;
     font-family: Georgia, serif;
+    outline: none;
+    position: relative;
+    top: 9px;
 }
 
 .pagina-catalogo .suscripcion-catalogo button {
     height: 37px;
     border: none;
-    border-radius: 12px;
-    background-color: #873532;
+    border-radius: 0 5px 5px 0;
+    background-color: #83483D;
     color: white;
-    padding: 0 28px;
+    padding: 0 20px;
     font-family: Georgia, serif;
     font-size: 16px;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
+
+.pagina-catalogo .suscripcion-catalogo button:hover {
+    background-color: #692828;
+}
+
+/* MENSAJE DE CONFIRMACIÓN */
+
+.pagina-catalogo #mensaje-suscripcion {
+    margin-top: 12px;
+    color: #692828;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* REDES SOCIALES */
 
 .pagina-catalogo .redes-sociales {
     display: flex;
@@ -371,42 +430,7 @@
     background-color: #873532;
 }
 
-/* AJUSTES DE LA CABECERA Y LOS RESULTADOS */
-
-/* Mantenemos el logo y la navegación separados */
-
-.pagina-catalogo .cabecera-catalogo {
-    display: flex;
-    align-items: flex-start;
-}
-
-.pagina-catalogo .logo-catalogo {
-    flex-shrink: 0;
-}
-
-.pagina-catalogo .navegacion-catalogo {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-}
-
-/* Evitamos que los enlaces del menú se deformen */
-
-.pagina-catalogo .menu-catalogo {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 25px;
-    padding-right: 10px;
-}
-
-.pagina-catalogo .menu-catalogo a {
-    flex-shrink: 0;
-}
-
-/* Centramos el mensaje cuando no hay resultados */
+/* MENSAJE CUANDO NO HAY RESULTADOS */
 
 .pagina-catalogo .mensaje-sin-resultados {
     grid-column: 1 / -1;
@@ -414,32 +438,6 @@
     padding: 25px 10px;
     font-size: 18px;
     margin: 0;
-}
-
-/* ADAPTAMOS LA CABECERA A PANTALLAS PEQUEÑAS */
-
-@media (max-width: 1000px) {
-
-    .pagina-catalogo .cabecera-catalogo {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .pagina-catalogo .navegacion-catalogo {
-        width: 100%;
-    }
-
-    .pagina-catalogo .menu-catalogo {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-}
-
-@media (max-width: 550px) {
-
-    .pagina-catalogo .buscador-catalogo {
-        width: 100%;
-    }
 }
 
 /* DISEÑO RESPONSIVE */
@@ -503,115 +501,4 @@
     .pagina-catalogo .buscador-catalogo {
         width: 100%;
     }
-}
-
-/* IMÁGENES DE LAS CATEGORÍAS */
-
-.pagina-catalogo .bloque-categoria {
-    position: relative;
-    overflow: hidden;
-}
-
-.pagina-catalogo .bloque-categoria img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    top: 0;
-    left: 0;
-}
-
-.pagina-catalogo .bloque-categoria span {
-    position: relative;
-    z-index: 1;
-}
-
-
-/* Formulario de suscripción */
-.suscripcion-catalogo form {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* Campo para introducir el correo */
-.suscripcion-catalogo input {
-    padding: 12px;
-    border: 1px solid #d8d2d1;
-    border-radius: 5px;
-    outline: none;
-}
-
-/* Botón de suscripción */
-.suscripcion-catalogo button {
-    padding: 12px 20px;
-    background-color: #83483D;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-/* Cambiamos el color al pasar el ratón */
-.suscripcion-catalogo button:hover {
-    background-color: #692828;
-}
-
-/* Mensaje de confirmación */
-#mensaje-suscripcion {
-    margin-top: 10px;
-    color: #692828;
-    font-size: 14px;
-    text-align: center;
-}
-
-
-
-/* Distribución de la zona de novedades */
-.novedades-catalogo {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 50px;
-}
-
-/* Separamos la frase del formulario */
-.texto-novedades {
-    margin-right: 60px;
-}
-
-/* Formulario de suscripción */
-/* Centramos el campo y el botón */
-#formulario-suscripcion {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;
-    gap: 0;
-}
-
-/* Campo del correo */
-#formulario-suscripcion input {
-    width: 250px;
-    box-sizing: border-box;
-    border-radius: 5px 0 0 5px;
-}
-
-/* Movemos el campo del correo */
-#formulario-suscripcion input {
-    position: relative;
-    top: 9px;
-}
-
-/* Botón pegado al campo */
-#formulario-suscripcion button {
-    white-space: nowrap;
-    flex-shrink: 0;
-    border-radius: 0 5px 5px 0;
-}
-
-/* Mensaje de confirmación */
-#mensaje-suscripcion {
-    margin-top: 12px;
 }
