@@ -1,6 +1,4 @@
 -- Little Chapters: estructura y datos iniciales
--- Este archivo se ejecuta en una instalación de MariaDB/MySQL de prueba.
--- NO elimina bases de datos ni tablas existentes.
 
 CREATE DATABASE IF NOT EXISTS `little_chapters`
   DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci;
