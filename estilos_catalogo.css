@@ -316,104 +316,90 @@
     cursor: pointer;
 }
 
-/* PIE DE PÁGINA */
 
-.pagina-catalogo .pie-catalogo {
-    background-color: #ead5d5;
-    padding: 15px 0 20px;
+
+
+
+/* --------------------------------
+   PIE DE PÁGINA
+-------------------------------- */
+
+.pagina-catalogo footer.pie-catalogo {
+    background-color: #f7e9e9;
+    padding: 0 0 20px;
 }
 
 .pagina-catalogo .novedades-catalogo {
     min-height: 75px;
     background-color: #f7e9e9;
+
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+
     padding: 12px 3%;
-    gap: 50px;
+    gap: 20px;
 }
+
+/* TEXTO DE NOVEDADES */
 
 .pagina-catalogo .texto-novedades {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-right: 60px;
+    color: black;
 }
 
 .pagina-catalogo .texto-novedades p {
     font-size: 18px;
     margin: 0;
     white-space: nowrap;
+    color: black;
 }
 
-/* ICONO DEL SOBRE */
-
 .pagina-catalogo .icono-sobre {
-    display: inline-block;
-    width: auto;
-    height: auto;
-    padding: 0;
-    margin: 0;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    font-family: Arial, sans-serif;
     font-size: 28px;
-    line-height: 1;
+    color: black;
 }
 
 /* FORMULARIO DE SUSCRIPCIÓN */
 
-.pagina-catalogo .suscripcion-catalogo {
-    display: flex;
-    align-items: center;
-}
-
 .pagina-catalogo .suscripcion-catalogo form {
     display: flex;
+    flex-direction: row;
     align-items: center;
     gap: 0;
+    margin: 0;
 }
 
 .pagina-catalogo .suscripcion-catalogo input {
-    width: 250px;
-    height: 37px;
+    width: 280px;
+    height: 40px;
     box-sizing: border-box;
-    border: 1px solid #d8d2d1;
+    margin: 0;
+    padding: 0 13px;
+    border: none;
     border-radius: 5px 0 0 5px;
-    background-color: #ead5d5;
-    padding: 10px 15px;
-    font-family: Georgia, serif;
-    outline: none;
-    position: relative;
-    top: 9px;
+    background-color: white;
+    font-size: 14px;
 }
 
 .pagina-catalogo .suscripcion-catalogo button {
-    height: 37px;
+    height: 40px;
+    padding: 0 18px;
     border: none;
     border-radius: 0 5px 5px 0;
-    background-color: #83483D;
+    background-color: #873532;
     color: white;
-    padding: 0 20px;
-    font-family: Georgia, serif;
-    font-size: 16px;
     cursor: pointer;
     white-space: nowrap;
-    flex-shrink: 0;
-}
-
-.pagina-catalogo .suscripcion-catalogo button:hover {
-    background-color: #692828;
 }
 
 /* MENSAJE DE CONFIRMACIÓN */
 
 .pagina-catalogo #mensaje-suscripcion {
-    margin-top: 12px;
-    color: #692828;
-    font-size: 14px;
-    text-align: center;
+    color: black;
+    margin: 0;
 }
 
 /* REDES SOCIALES */
@@ -421,6 +407,7 @@
 .pagina-catalogo .redes-sociales {
     display: flex;
     gap: 13px;
+    align-items: center;
 }
 
 .pagina-catalogo .redes-sociales a {
@@ -428,17 +415,9 @@
     height: 34px;
     border-radius: 50%;
     background-color: #873532;
+    flex-shrink: 0;
 }
 
-/* MENSAJE CUANDO NO HAY RESULTADOS */
-
-.pagina-catalogo .mensaje-sin-resultados {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 25px 10px;
-    font-size: 18px;
-    margin: 0;
-}
 
 /* DISEÑO RESPONSIVE */
 
@@ -501,4 +480,47 @@
     .pagina-catalogo .buscador-catalogo {
         width: 100%;
     }
+}
+
+
+/* Corrección del formulario de suscripción */
+
+.pagina-catalogo .suscripcion-catalogo form {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center;
+    gap: 0;
+    margin: 0;
+}
+
+.pagina-catalogo .suscripcion-catalogo input {
+    margin: 0 !important;
+    position: static !important;
+    width: 300px;
+}
+
+.pagina-catalogo .suscripcion-catalogo button {
+    margin: 0 !important;
+    white-space: nowrap;
+}
+
+.pagina-catalogo .pie-catalogo,
+.pagina-catalogo .novedades-catalogo {
+    background-color: #f7e9e9 !important;
+}
+
+
+/* Mensaje después de suscribirse */
+
+.pagina-catalogo .suscripcion-catalogo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagina-catalogo #mensaje-suscripcion {
+    color: #873532;
+    margin: 0;
 }

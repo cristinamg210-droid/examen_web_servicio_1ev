@@ -445,13 +445,15 @@ $productos = $consulta->fetchAll();
             event.preventDefault();
 
             // Ocultamos el formulario
-            formulario.style.display = "none";
+            formulario.remove();
 
             // Mostramos el mensaje de confirmación
             mensaje.textContent = "¡Gracias por suscribirte! Pronto tendrás noticias de Little Chapters.";
 
-            // Hacemos visible el mensaje
+            // Mostramos el mensaje centrado
             mensaje.style.display = "block";
+            mensaje.style.width = "100%";
+            mensaje.style.textAlign = "center";
 
         });
 

@@ -125,15 +125,6 @@ form input[type="password"] {
     box-sizing: border-box;
 }
 
-.password span {
-    position: absolute;
-    width: 22px;
-    height: 21px;
-    background-color: #d8d8d8;
-    right: 12px;
-    top: 10px;
-}
-
 /* Opción recordar correo */
 
 .recordar {
@@ -1921,4 +1912,23 @@ body.pagina-eliminar-producto {
     padding: 12px;
     border-radius: 8px;
     margin-top: 0;
+}
+
+
+
+/* Validación de la contraseña */
+
+.password input.contrasena-error {
+    border: 2px solid #b34e50;
+}
+
+/* Mensaje debajo de la contraseña */
+
+.password .mensaje-contrasena {
+    color: #b34e50;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    text-align: left;
+    margin: -12px 0 15px;
+    min-height: 0;
 }
